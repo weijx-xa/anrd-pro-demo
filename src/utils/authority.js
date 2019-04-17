@@ -1,3 +1,5 @@
+import { Base64 } from 'js-base64';
+
 // use localStorage to store the authority info, which might be sent from server in actual project.
 export function getAuthority(str) {
   // return localStorage.getItem('antd-pro-authority') || ['admin', 'user'];
@@ -22,4 +24,15 @@ export function getAuthority(str) {
 export function setAuthority(authority) {
   const proAuthority = typeof authority === 'string' ? [authority] : authority;
   return localStorage.setItem('antd-pro-authority', JSON.stringify(proAuthority));
+}
+export function jwtToUser(jwt) {
+  const jwtArray = jwt.split('.');
+  return JSON.parse(Base64.decode(jwtArray[1]));
+}
+export function getUserInfo() {
+  const jwt = localStorage.getItem(`hzttweb-jwt`);
+  if (jwt && jwt !== '') {
+    return jwtToUser(jwt);
+  }
+  return false;
 }

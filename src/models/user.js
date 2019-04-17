@@ -1,4 +1,5 @@
-import { query as queryUsers, queryCurrent } from '@/services/user';
+import { query as queryUsers } from '@/services/user';
+import { getUserInfo } from '@/utils/authority';
 
 export default {
   namespace: 'user',
@@ -16,8 +17,9 @@ export default {
         payload: response,
       });
     },
-    *fetchCurrent(_, { call, put }) {
-      const response = yield call(queryCurrent);
+    *fetchCurrent(_, { put }) {
+      const response = getUserInfo();
+      console.log(response);
       yield put({
         type: 'saveCurrentUser',
         payload: response,
