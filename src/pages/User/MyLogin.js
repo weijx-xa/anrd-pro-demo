@@ -47,7 +47,7 @@ class MyLoginPage extends Component {
         type: 'login/login',
         payload: {
           status: 'ok',
-          currentAuthority: 'admin',
+          type: 'scanQRCode',
           jwt: data,
         },
       });

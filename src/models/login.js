@@ -21,7 +21,7 @@ export default {
       });
       // Login successfully
       if (response.status === 'ok') {
-        localStorage.setItem('hzttweb-jwt', payload.jwt);
+        setAuthority(payload.jwt);
         reloadAuthorized();
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
@@ -54,6 +54,8 @@ export default {
         },
       });
       reloadAuthorized();
+      // 清除jwt
+      localStorage.removeItem('hzttweb-jwt');
       // redirect
       if (window.location.pathname !== '/user/login') {
         yield put(
@@ -70,7 +72,6 @@ export default {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
       return {
         ...state,
         status: payload.status,
