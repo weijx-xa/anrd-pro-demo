@@ -38,6 +38,12 @@ export default [
         component: './PinList/index',
       },
       {
+        path: '/task',
+        name: '手工工单',
+        icon: 'table',
+        component: './Task/index',
+      },
+      {
         name: 'result',
         icon: 'check-circle-o',
         path: '/result',

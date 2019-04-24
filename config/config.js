@@ -83,6 +83,10 @@ export default {
       changeOrigin: true,
       // pathRewrite: { '^/server': '' },
     },
+    '/task/': {
+      target: 'https://ali.hzttweb.com:7001',
+      changeOrigin: true,
+    },
   },
   ignoreMomentLocale: true,
   lessLoaderOptions: {

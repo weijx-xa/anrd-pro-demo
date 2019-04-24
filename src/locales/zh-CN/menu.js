@@ -1,5 +1,7 @@
 export default {
   'menu.home': '首页',
+  'menu.手工工单': '手工工单',
+  'menu.短信验证码': '短信验证码',
   'menu.login': '登录',
   'menu.register': '注册',
   'menu.register.result': '注册结果',
