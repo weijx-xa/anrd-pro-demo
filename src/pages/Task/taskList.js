@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Table, Modal, Input, message, Badge, Popover } from 'antd';
+import { Table, Modal, Input, message, Badge, Popover, Typography } from 'antd';
 import { TweenOneGroup } from 'rc-tween-one';
 import moment from 'moment';
-import { getUserInfo } from '@/utils/authority';
 import styles from './list.less';
 
 const { TextArea } = Input;
@@ -151,22 +150,31 @@ export default class ListTable extends Component {
       { duration: 250, opacity: 0 },
       { height: 0, duration: 200, ease: 'easeOutQuad' },
     ];
-    this.logininfo = getUserInfo();
     this.state = {
       remark: '',
       visible: false,
       theTaskId: NaN,
+      filteredInfo: {
+        status: ['待接单', '已接单'],
+      },
     };
   }
 
+  handleChange = (pagination, filters) => {
+    console.log('Various parameters', pagination, filters);
+    this.setState({
+      filteredInfo: filters,
+    });
+  };
+
   acceptTask = id => {
-    const { dispatch } = this.props;
+    const { dispatch, logininfo } = this.props;
     dispatch({
       type: 'task/updateTask',
       payload: {
         option: 'accept',
         id,
-        deal_man: this.logininfo.name,
+        deal_man: logininfo.name,
       },
       callback: mess => {
         if (mess === 'ok') {
@@ -180,7 +188,7 @@ export default class ListTable extends Component {
 
   endTask = () => {
     // console.log(this.state.theTaskId,this.state.remark)
-    const { dispatch } = this.props;
+    const { dispatch, logininfo } = this.props;
     const { theTaskId, remark } = this.state;
     this.setState({ visible: false, theTaskId: NaN, remark: '' });
     dispatch({
@@ -189,7 +197,7 @@ export default class ListTable extends Component {
         option: 'end',
         id: theTaskId,
         remark: remark === '' ? '工单完成' : remark,
-        deal_man: this.logininfo.name,
+        deal_man: logininfo.name,
       },
       callback: mess => {
         if (mess === 'ok') {
@@ -218,20 +226,24 @@ export default class ListTable extends Component {
   render() {
     const { data, loading } = this.props;
     const { remark, visible, theTaskId } = this.state;
+    let { filteredInfo } = this.state;
+    filteredInfo = filteredInfo || {};
     const columns = [
       {
         title: '序号',
         dataIndex: 'id',
         key: 'id',
+        width: 60,
         render: (text, record, index) => index,
       },
       {
-        title: '县区-班组',
+        title: '县区',
         dataIndex: 'dep_id',
         key: 'dep_id',
-        width: 180,
+        width: 60,
         render: text => {
-          return text;
+          console.log(text);
+          return '汉台';
           // if(typeof(departlist.errmsg)==="undefined") {
           //   return text;
           // } else {
@@ -247,11 +259,13 @@ export default class ListTable extends Component {
         title: '申请人',
         dataIndex: 'user_name',
         key: 'user_name',
+        width: 80,
       },
       {
         title: '申请类型',
         dataIndex: 'para_code',
         key: 'para_code',
+        width: 130,
         render: text => pdata.find(item => item.value === text).label,
       },
       {
@@ -260,37 +274,52 @@ export default class ListTable extends Component {
         key: 'created_at',
         width: 130,
         sorter: (a, b) => moment(a.create_time).valueOf() - moment(b.create_time).valueOf(),
-        render: text => moment(text).format('H:mm:ss'),
+        render: text => moment(text).format('HH:mm:ss'),
       },
       {
         title: '申请内容',
         dataIndex: 'par',
         key: 'par',
-        width: '40vw',
         render: (text, record) => taskStr(record.para_code, record.par),
       },
       {
         title: '申请状态',
-        dataIndex: 'accept_at',
-        key: 'accept_at',
+        dataIndex: 'status',
+        key: 'status',
+        width: 130,
+        filters: [
+          { text: '待接单', value: '待接单' },
+          { text: '已接单', value: '已接单' },
+          { text: '已完成', value: '已完成' },
+        ],
+        filteredValue: filteredInfo.status,
+        onFilter: (value, record) => record.status.includes(value),
         render: (text, record) => {
-          if (record.accept_at === null) return <Badge status="success" text="待接单" />;
-          if (record.end_at === null)
+          if (text === '待接单') return <Badge status="success" text="待接单" />;
+          if (text === '已接单')
             return <Badge status="processing" text={`${record.deal_man}已接单`} />;
-          return <Badge status="default" text={`${record.deal_man}已完成`} />;
+          return <Badge status="default" text={`${record.deal_man}${text}`} />;
         },
       },
       {
         title: '操作',
+        dataIndex: 'status',
         key: 'action',
+        width: '12vw',
         render: (text, record) => {
-          if (record.accept_at === null)
-            return <a onClick={() => this.acceptTask(record.id)}>接单</a>;
-          if (record.end_at === null)
+          if (text === '待接单') return <a onClick={() => this.acceptTask(record.id)}>接单</a>;
+          if (text === '已接单')
             return (
               <a onClick={() => this.setState({ visible: true, theTaskId: record.id })}>回复</a>
             );
-          return record.remark;
+          return (
+            <Typography.Paragraph
+              ellipsis={{ rows: 2, expandable: true }}
+              style={{ marginBottom: 0 }}
+            >
+              {record.remark}
+            </Typography.Paragraph>
+          );
         },
       },
     ];
@@ -317,9 +346,9 @@ export default class ListTable extends Component {
           dataSource={data}
           rowKey="id"
           locale={{ emptyText: '暂无数据' }}
-          // components={{ body }}
+          components={{ body }}
           loading={loading}
-          scroll={{ x: 1300 }}
+          onChange={this.handleChange}
         />
         {!Number.isNaN(theTaskId) && (
           <Modal

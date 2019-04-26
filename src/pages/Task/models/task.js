@@ -23,11 +23,7 @@ export default {
     *getTaskList({ payload }, { call, put }) {
       const data = yield call(queryTaskList, { ...payload });
       if (data.errmsg === 'ok') {
-        if (payload.by === 'online') {
-          yield put({ type: 'saveOnlineTaskList', payload: data });
-        } else {
-          yield put({ type: 'saveFinshTaskList', payload: data });
-        }
+        yield put({ type: 'saveOnlineTaskList', payload: data });
       }
     },
     *getDepartList(_, { call, put }) {

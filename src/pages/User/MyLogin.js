@@ -55,7 +55,7 @@ class MyLoginPage extends Component {
   };
 
   componentWillUnmount = () => {
-    this.socket.close();
+    this.socket.close(1000);
   };
 
   render() {

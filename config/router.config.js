@@ -28,20 +28,30 @@ export default [
       {
         path: '/dashboard',
         name: '首页',
-        icon: 'dashboard',
+        icon: 'home',
+        authority: ['admin', 'user'],
         component: './Dashboard/index',
       },
       {
         path: '/pinlist',
         name: '短信验证码',
-        icon: 'dashboard',
+        icon: 'mail',
+        authority: ['admin', 'user'],
         component: './PinList/index',
       },
       {
         path: '/task',
         name: '手工工单',
         icon: 'table',
+        authority: ['admin', 'user'],
         component: './Task/index',
+      },
+      {
+        path: '/cmauth',
+        name: '认证次数',
+        icon: 'link',
+        authority: ['admin', 'user'],
+        component: './CMauth/index',
       },
       {
         name: 'result',
