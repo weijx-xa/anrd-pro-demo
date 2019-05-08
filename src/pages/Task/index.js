@@ -9,8 +9,10 @@ import TaskList from './taskList';
 import styles from './index.less';
 
 @connect(({ task, loading }) => ({
-  onlinetasklist: task.onlinetasklist,
+  tasklist: task.tasklist,
+  departlist: task.departlist,
   loading: loading.effects['task/getTaskList'],
+  logininfo: getUserInfo(),
 }))
 class IndexPage extends Component {
   constructor(props) {
@@ -18,10 +20,10 @@ class IndexPage extends Component {
     this.state = {
       isOnline: true,
     };
-    this.logininfo = getUserInfo();
   }
 
   componentDidMount() {
+    const { dispatch } = this.props;
     this.loadTaskList();
     this.socket = io('https://ali.hzttweb.com:7001/task', {
       transports: ['websocket'],
@@ -30,11 +32,21 @@ class IndexPage extends Component {
     this.socket.on('connect', () => {
       console.log(`connect! id:${this.socket.id}`);
     });
-    this.socket.on('taskupdate', () => {
-      console.log('taskupdate');
+
+    this.socket.on('taskupdate', data => {
+      console.log('taskupdate', data);
+      dispatch({
+        type: 'task/updateOnlineTaskList',
+        payload: JSON.parse(data),
+      });
     });
-    this.socket.on('bossupdate', () => {
-      console.log('bossupdate');
+
+    this.socket.on('disconnect', () => {
+      this.setState({ isOnline: false });
+    });
+
+    this.socket.on('reconnect', () => {
+      this.setState({ isOnline: true });
     });
   }
 
@@ -43,18 +55,18 @@ class IndexPage extends Component {
   }
 
   loadTaskList = () => {
-    const { dispatch } = this.props;
+    const { dispatch, logininfo } = this.props;
     dispatch({
       type: 'task/getTaskList',
       payload: {
         jwt: localStorage.getItem(`hzttweb-jwt`),
-        role: this.logininfo.role,
+        role: logininfo.role,
       },
     });
   };
 
   render() {
-    const { onlinetasklist, dispatch } = this.props;
+    const { tasklist, dispatch, logininfo, departlist } = this.props;
     const { isOnline } = this.state;
     return (
       <PageHeaderWrapper title="手工工单">
@@ -67,7 +79,12 @@ class IndexPage extends Component {
                 <Badge status="error" text="与服务器连接断开" />
               )}
             </div>
-            <TaskList data={onlinetasklist.data} dispatch={dispatch} logininfo={this.logininfo} />
+            <TaskList
+              data={tasklist}
+              dispatch={dispatch}
+              logininfo={logininfo}
+              departlist={departlist}
+            />
           </div>
         </Card>
       </PageHeaderWrapper>

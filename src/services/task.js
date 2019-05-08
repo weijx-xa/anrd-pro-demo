@@ -8,7 +8,7 @@ export async function queryTaskList(params) {
 }
 
 export function queryDepartList() {
-  return request('/public/index.php/index/login/depart_list');
+  return request('/login/getdeplist');
 }
 
 export function queryUpdateTask(params) {

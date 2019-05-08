@@ -83,7 +83,7 @@ const taskStr = (paraCode, par) => {
             </span>,
             <span key="tel">，联系方式</span>,
             <span key="tel2" className={styles.neirong}>
-              {par.tel}
+              {par.phone}
             </span>,
             <span key="address">，装机地址</span>,
             <span key="address2" className={styles.neirong}>
@@ -161,7 +161,7 @@ export default class ListTable extends Component {
   }
 
   handleChange = (pagination, filters) => {
-    console.log('Various parameters', pagination, filters);
+    // console.log('Various parameters', pagination, filters);
     this.setState({
       filteredInfo: filters,
     });
@@ -217,14 +217,14 @@ export default class ListTable extends Component {
   };
 
   inputChange = e => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     this.setState({
       remark: e.target.value,
     });
   };
 
   render() {
-    const { data, loading } = this.props;
+    const { data, loading, departlist } = this.props;
     const { remark, visible, theTaskId } = this.state;
     let { filteredInfo } = this.state;
     filteredInfo = filteredInfo || {};
@@ -237,22 +237,19 @@ export default class ListTable extends Component {
         render: (text, record, index) => index,
       },
       {
-        title: '县区',
+        title: '班组',
         dataIndex: 'dep_id',
         key: 'dep_id',
-        width: 60,
+        width: 150,
         render: text => {
-          console.log(text);
-          return '汉台';
-          // if(typeof(departlist.errmsg)==="undefined") {
-          //   return text;
-          // } else {
-          //   const mydepart = departlist.department.filter(item => item.id === text)[0];
-          //   if(!mydepart)return text;
-          //   if(mydepart.id === 1)return mydepart.name;
-          //   const parentdepart = departlist.department.filter(item => item.id === mydepart.parentid)[0];
-          //   return mydepart.parentid === 1?mydepart.name:`${parentdepart.name}-${mydepart.name}`;
-          // }
+          if (departlist.length === 0) return text;
+          const myDepartment = departlist.find(item => item.id === text);
+          return myDepartment.name;
+          // const mydepart = departlist.department.filter(item => item.id === text)[0];
+          // if(!mydepart)return text;
+          // if(mydepart.id === 1)return mydepart.name;
+          // const parentdepart = departlist.department.filter(item => item.id === mydepart.parentid)[0];
+          // return mydepart.parentid === 1?mydepart.name:`${parentdepart.name}-${mydepart.name}`;
         },
       },
       {

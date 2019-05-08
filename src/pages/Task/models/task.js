@@ -5,65 +5,57 @@ export default {
   namespace: 'task',
 
   state: {
-    logininfo: {},
-    onlinetasklist: { data: [] },
-    finshtasklist: { data: [] },
-    departlist: {},
+    tasklist: [],
+    departlist: [],
   },
 
   subscriptions: {
-    // setup({ history, dispatch }) {
-    //   if(history.location.pathname === '/task') {
-    //     dispatch({type: 'getTaskList'});
-    //   }
-    // },
+    setup({ history, dispatch }) {
+      if (history.location.pathname === '/task') {
+        dispatch({ type: 'getDepartList' });
+      }
+    },
   },
 
   effects: {
     *getTaskList({ payload }, { call, put }) {
-      const data = yield call(queryTaskList, { ...payload });
-      if (data.errmsg === 'ok') {
-        yield put({ type: 'saveOnlineTaskList', payload: data });
+      const response = yield call(queryTaskList, { ...payload });
+      if (response.errmsg === 'ok') {
+        yield put({ type: 'saveTaskList', payload: response.data });
       }
     },
-    *getDepartList(_, { call, put }) {
-      const data = yield call(queryDepartList);
-      if (data.errmsg === 'ok') {
-        yield put({ type: 'saveDepartList', payload: data });
-      }
+    *getDepartList(_, { call, put, select }) {
+      const depList = yield select(state => state.task.departlist);
+      if (depList.length > 0) return;
+      const response = yield call(queryDepartList);
+      yield put({ type: 'saveDepartList', payload: response });
     },
     *updateTask({ payload, callback }, { call, put }) {
-      const data = yield call(queryUpdateTask, { ...payload });
-      if (data.errcode === 0) yield put({ type: 'saveOnlineTaskList', payload: data });
-      callback(data.errmsg);
+      const response = yield call(queryUpdateTask, { ...payload });
+      if (response.errcode === 0) yield put({ type: 'saveTaskList', payload: response.data });
+      callback(response.errmsg);
     },
   },
 
   reducers: {
-    saveOnlineTaskList(state, { payload }) {
+    saveTaskList(state, { payload }) {
       return {
         ...state,
-        onlinetasklist: payload,
+        tasklist: payload,
       };
     },
     updateOnlineTaskList(state, { payload }) {
-      const newData = [...state.onlinetasklist.data];
-      const target = newData.filter(item => item.id === payload.id);
-      if (target.length > 0) {
-        delete target[0].accept_time;
-        delete target[0].deal_man;
-        target[0].accept_time = payload.accept_time;
-        target[0].deal_man = payload.deal_man;
-      } else {
+      const newData = [...state.tasklist];
+      const index = newData.findIndex(item => item.id === payload.id);
+      if (index === -1) {
         newData.push(payload);
+      } else {
+        newData[index] = payload;
       }
       console.log(newData);
       return {
         ...state,
-        onlinetasklist: {
-          errmsg: state.onlinetasklist.errmsg,
-          data: newData,
-        },
+        tasklist: newData,
       };
     },
     deleteOnlineTask(state, { payload }) {
@@ -74,12 +66,6 @@ export default {
           errmsg: state.onlinetasklist.errmsg,
           data: newData,
         },
-      };
-    },
-    saveFinshTaskList(state, { payload }) {
-      return {
-        ...state,
-        finshtasklist: payload,
       };
     },
     saveDepartList(state, { payload }) {

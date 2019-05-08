@@ -87,6 +87,10 @@ export default {
       target: 'https://ali.hzttweb.com:7001',
       changeOrigin: true,
     },
+    '/login/': {
+      target: 'https://ali.hzttweb.com:7001',
+      changeOrigin: true,
+    },
   },
   ignoreMomentLocale: true,
   lessLoaderOptions: {
@@ -120,4 +124,8 @@ export default {
   },
 
   chainWebpack: webpackPlugin,
+  history: 'hash',
+  base: '/public/pctest/',
+  hash: true,
+  publicPath: 'https://alipublic.oss-cn-beijing.aliyuncs.com/pctest/',
 };
