@@ -47,6 +47,19 @@ export default [
           },
         ],
       },
+      // 和问卷
+      {
+        path: '/hwj',
+        name: 'hwj',
+        icon: 'edit',
+        routes: [
+          {
+            path: '/hwj/edit',
+            name: 'edit',
+            component: './HWJ/index',
+          },
+        ],
+      },
       // forms
       {
         path: '/form',
