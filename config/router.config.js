@@ -58,6 +58,11 @@ export default [
             name: 'edit',
             component: './HWJ/index',
           },
+          {
+            path: '/hwj/send',
+            name: 'send',
+            component: './HWJ/send',
+          },
         ],
       },
       // forms

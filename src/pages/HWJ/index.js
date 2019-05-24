@@ -22,7 +22,7 @@ class HWJedit extends PureComponent {
     const script = document.createElement('script');
     script.src = `https://www.wjx.cn/handler/loginemed.ashx?url=${url}&width=100%&height=100%`;
     script.async = true;
-    this.myRef.appendChild(script);
+    this.myRef.current.appendChild(script);
     // console.log(this.instance.clientHeight)
   }
 
