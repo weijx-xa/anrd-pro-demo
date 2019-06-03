@@ -37,8 +37,9 @@ export default {
       });
       callback();
     },
-    *finalSubmit({ payload, callback }, { call }) {
+    *finalSubmit({ payload, callback }, { call, put }) {
       const response = yield call(postFinalSubmit, payload);
+      yield put({ type: 'resetPage' });
       if (response.errcode === 0) {
         callback();
       }
@@ -85,6 +86,13 @@ export default {
       return {
         ...state,
         selectedUserIds: payload,
+      };
+    },
+    resetPage(state) {
+      return {
+        ...state,
+        sendUsers: [],
+        selectedUserIds: [],
       };
     },
   },
