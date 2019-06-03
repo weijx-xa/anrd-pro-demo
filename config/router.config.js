@@ -49,19 +49,19 @@ export default [
       },
       // 和问卷
       {
-        path: '/hwj',
-        name: 'hwj',
+        path: '/hwjpage',
+        name: '和问卷',
         icon: 'edit',
         routes: [
           {
-            path: '/hwj/edit',
+            path: '/hwjpage/edit',
             name: 'edit',
-            component: './HWJ/index',
+            component: './Hwjpage/index',
           },
           {
-            path: '/hwj/send',
+            path: '/hwjpage/send',
             name: 'send',
-            component: './HWJ/send',
+            component: './Hwjpage/send',
           },
         ],
       },
