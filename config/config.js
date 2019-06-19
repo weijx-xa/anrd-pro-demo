@@ -80,7 +80,7 @@ export default {
   },
   proxy: {
     '/hwj/': {
-      target: 'http://sxtsqy.cttsn.com:7001/',
+      target: 'http://ali.hzttweb.com:7000/',
       changeOrigin: true,
       // pathRewrite: { '^/server': '' },
     },
