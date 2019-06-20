@@ -1,14 +1,5 @@
-import React, { PureComponent } from 'react'
-import {
-  Card,
-  Button,
-  Form,
-  Select,
-  Row,
-  Col,
-  Table,
-  message,
-} from 'antd';
+import React, { PureComponent } from 'react';
+import { Card, Button, Form, Select, Row, Col, Table, message } from 'antd';
 import { connect } from 'dva';
 import FooterToolbar from '@/components/FooterToolbar';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
@@ -21,6 +12,7 @@ const { Option } = Select;
 @connect(({ hwj, loading }) => ({
   questList: hwj.questList,
   sendUsers: hwj.sendUsers,
+  questInfo: hwj.questInfo,
   selectedUserIds: hwj.selectedUserIds,
   submitting: loading.effects['form/submitAdvancedForm'],
 }))
@@ -45,12 +37,19 @@ class HWJsend extends PureComponent {
     window.removeEventListener('resize', this.resizeFooterToolbar);
   }
 
-  questionOnChange = (value) => {
+  questionOnChange = value => {
     console.log(`selected ${value}`);
-    // 获取所选问卷的发送配置
-    // 更改step
-    this.setState({ step: 1, qid: value })
-  }
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'hwj/queryQuestInfo',
+      payload: {
+        qid: value,
+      },
+      callback: (qid, step) => {
+        this.setState({ qid, step });
+      },
+    });
+  };
 
   resizeFooterToolbar = () => {
     requestAnimationFrame(() => {
@@ -65,21 +64,21 @@ class HWJsend extends PureComponent {
     });
   };
 
-  selectUsers = (selectedRowKeys) => {
+  selectUsers = selectedRowKeys => {
     const { dispatch } = this.props;
     dispatch({
       type: 'hwj/saveUserIds',
       payload: selectedRowKeys,
     });
-  }
+  };
 
-  addUser = (userInfo) => {
+  addUser = userInfo => {
     const { dispatch } = this.props;
     dispatch({
       type: 'hwj/addSendUsers',
       payload: userInfo,
     });
-  }
+  };
 
   validate = () => {
     const {
@@ -98,8 +97,8 @@ class HWJsend extends PureComponent {
             jwt: localStorage.getItem('hzttweb-jwt'),
           },
           callback: () => {
-            this.setState({ step: 2 })
-          }
+            this.setState({ step: 2 });
+          },
         });
       }
     });
@@ -125,25 +124,20 @@ class HWJsend extends PureComponent {
           callback: () => {
             this.setState({ step: 0, qid: 0 });
             message.success('提交成功！');
-          }
+          },
         });
       }
     });
   };
 
   render() {
-    const {
-      form,
-      submitting,
-      questList,
-      sendUsers,
-      selectedUserIds,
-    } = this.props;
+    const { form, submitting, questList, questInfo, sendUsers, selectedUserIds } = this.props;
     const { width, step } = this.state;
+    console.log(sendUsers, selectedUserIds);
 
     // rowSelection object indicates the need for row selection
     const rowSelection = {
-      onChange: (selectedRowKeys) => this.selectUsers(selectedRowKeys),
+      onChange: selectedRowKeys => this.selectUsers(selectedRowKeys),
       selectedRowKeys: selectedUserIds,
     };
     const columns = [
@@ -197,7 +191,6 @@ class HWJsend extends PureComponent {
       },
     ];
 
-
     return (
       <PageHeaderWrapper
         title="发送人员选择"
@@ -217,7 +210,11 @@ class HWJsend extends PureComponent {
                 placeholder="请选择需要发送的问卷"
                 onChange={this.questionOnChange}
               >
-                {questList.map(item => <Option key={item.qid} value={item.qid}>问卷名称：{item.name}；问卷ID：{item.qid}；开始时间：{item.begindate}</Option>)}
+                {questList.map(item => (
+                  <Option key={item.qid} value={item.qid}>
+                    问卷名称：{item.name}；问卷ID：{item.qid}；开始时间：{item.begindate}
+                  </Option>
+                ))}
               </Select>
             </Col>
           </Row>
@@ -231,22 +228,42 @@ class HWJsend extends PureComponent {
           title="属性选择"
           className={styles.card}
           bordered={false}
-          actions={[<Button type="primary" disabled={step <= 0} onClick={this.validate}>确认属性</Button>]}
+          actions={[
+            <Button type="primary" disabled={step <= 0} onClick={this.validate}>
+              确认属性
+            </Button>,
+          ]}
           loading={step <= 0}
         >
-          <TagsSelect form={form} />
+          <h4>
+            {questInfo.userid === ''
+              ? '该问卷待编辑发送属性。'
+              : `该问卷由${questInfo.username}(${questInfo.userid}) 于 ${questInfo.updated_at} 编辑。`}
+          </h4>
+          <TagsSelect form={form} questInfo={questInfo} />
         </Card>
         <Card title="发送人员列表" className={styles.card} bordered={false} loading={step < 2}>
           <div className={styles.tableList}>
             <div className={styles.tableListOperator}>
               <AddPerson addUser={this.addUser} />
             </div>
-            <Table rowSelection={rowSelection} columns={columns} dataSource={sendUsers} rowKey='id' />,
+            <Table
+              rowSelection={rowSelection}
+              columns={columns}
+              dataSource={sendUsers}
+              rowKey="id"
+            />
+            ,
           </div>
         </Card>
         <FooterToolbar style={{ width }}>
           共计发送{selectedUserIds.length}人
-          <Button type="primary" onClick={this.finalSubmit} loading={submitting} disabled={step !== 2}>
+          <Button
+            type="primary"
+            onClick={this.finalSubmit}
+            loading={submitting}
+            disabled={step !== 2}
+          >
             提交
           </Button>
         </FooterToolbar>

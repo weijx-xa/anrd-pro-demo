@@ -1,4 +1,5 @@
 import request from '@/utils/request';
+import { stringify } from 'qs';
 
 export async function getColName() {
   return request('/hwj/colName');
@@ -6,6 +7,10 @@ export async function getColName() {
 
 export async function getQuestList() {
   return request(`/hwj/getuserq`);
+}
+
+export async function getQuestInfo(params) {
+  return request(`/hwj/questByQid?${stringify(params)}`);
 }
 
 export async function postDepList() {

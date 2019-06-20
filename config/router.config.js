@@ -24,11 +24,11 @@ export default [
     Routes: ['src/pages/Authorized'],
     routes: [
       // dashboard
-      { path: '/', redirect: '/dashboard'},
+      { path: '/', redirect: '/home' },
       {
-        path: '/dashboard',
-        name: '首页',
-        icon: 'dashboard',
+        path: '/home',
+        name: 'home',
+        icon: 'home',
         component: './Home/index',
         // routes: [
         //   {
@@ -50,18 +50,18 @@ export default [
       },
       // 和问卷
       {
-        path: '/hwjpage',
-        name: '和问卷',
+        path: '/dcwj',
+        name: 'dcwj',
         icon: 'edit',
         routes: [
           {
-            path: '/hwjpage/edit',
-            name: '编辑问卷',
+            path: '/dcwj/edit',
+            name: 'edit',
             component: './Hwjpage/index',
           },
           {
-            path: '/hwjpage/send',
-            name: '发送问卷',
+            path: '/dcwj/send',
+            name: 'send',
             component: './Hwjpage/send',
           },
         ],

@@ -42,4 +42,7 @@ export default {
   'menu.editor.flow': '流程编辑器',
   'menu.editor.mind': '脑图编辑器',
   'menu.editor.koni': '拓扑编辑器',
+  'menu.dcwj': '调查问卷',
+  'menu.dcwj.edit': '编辑问卷',
+  'menu.dcwj.send': '发送问卷',
 };
