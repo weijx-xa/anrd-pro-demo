@@ -38,8 +38,7 @@ class HWJsend extends PureComponent {
   }
 
   questionOnChange = value => {
-    console.log(`selected ${value}`);
-    const { dispatch } = this.props;
+    const { dispatch, form } = this.props;
     dispatch({
       type: 'hwj/queryQuestInfo',
       payload: {
@@ -47,6 +46,7 @@ class HWJsend extends PureComponent {
       },
       callback: (qid, step) => {
         this.setState({ qid, step });
+        form.resetFields();
       },
     });
   };
@@ -86,10 +86,9 @@ class HWJsend extends PureComponent {
       dispatch,
     } = this.props;
     validateFieldsAndScroll((error, values) => {
-      console.log('Received error of form: ', error);
-      console.log('Received values of form: ', values);
+      // console.log('Received error of form: ', error);
+      // console.log('Received values of form: ', values);
       if (!error) {
-        // submit the values
         dispatch({
           type: 'hwj/queryUserList',
           payload: {
@@ -133,7 +132,6 @@ class HWJsend extends PureComponent {
   render() {
     const { form, submitting, questList, questInfo, sendUsers, selectedUserIds } = this.props;
     const { width, step } = this.state;
-    console.log(sendUsers, selectedUserIds);
 
     // rowSelection object indicates the need for row selection
     const rowSelection = {

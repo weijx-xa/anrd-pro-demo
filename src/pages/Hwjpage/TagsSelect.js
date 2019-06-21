@@ -73,16 +73,25 @@ const formItemLayout = {
     md: { span: 16 },
   },
 };
+function compareArray(a1, a2) {
+  return a1.sort().toString() === a2.sort().toString();
+}
 class TagsSelect extends PureComponent {
   state = {
     checkedKeys: [],
     depModalVisible: false,
     countyIds: [],
+    isState: true,
   };
 
-  static getDerivedStateFromProps(nextProps) {
-    if (typeof nextProps.questInfo.CountyId === 'undefined') return null;
-    return { countyIds: nextProps.questInfo.CountyId };
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { questInfo } = nextProps;
+    const { countyIds, isState } = prevState;
+    if (compareArray(questInfo.CountyId, countyIds)) return null;
+    if (isState) {
+      return { countyIds: questInfo.CountyId, isState: false };
+    }
+    return { countyIds, isState: true };
   }
 
   showModal = () => {
@@ -130,7 +139,6 @@ class TagsSelect extends PureComponent {
       questInfo,
     } = this.props;
     const { checkedKeys, depModalVisible, countyIds } = this.state;
-    console.log(questInfo);
     return (
       <>
         <FormItem key="县区" {...formItemLayout} label="县区" required>

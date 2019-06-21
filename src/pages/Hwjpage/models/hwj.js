@@ -12,7 +12,9 @@ export default {
 
   state: {
     questList: [],
-    questInfo: {},
+    questInfo: {
+      CountyId: [],
+    },
     depList: [],
     colName: [],
     sendUsers: [],
