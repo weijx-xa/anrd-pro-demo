@@ -73,25 +73,20 @@ const formItemLayout = {
     md: { span: 16 },
   },
 };
-function compareArray(a1, a2) {
-  return a1.sort().toString() === a2.sort().toString();
-}
+
 class TagsSelect extends PureComponent {
   state = {
     checkedKeys: [],
     depModalVisible: false,
     countyIds: [],
-    isState: true,
+    qid: 0,
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { questInfo } = nextProps;
-    const { countyIds, isState } = prevState;
-    if (compareArray(questInfo.CountyId, countyIds)) return null;
-    if (isState) {
-      return { countyIds: questInfo.CountyId, isState: false };
-    }
-    return { countyIds, isState: true };
+    const { qid } = prevState;
+    if (qid === questInfo.qid) return null;
+    return { countyIds: questInfo.CountyId, qid: questInfo.qid };
   }
 
   showModal = () => {
