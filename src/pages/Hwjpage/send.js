@@ -20,7 +20,6 @@ const { Option } = Select;
 class HWJsend extends PureComponent {
   state = {
     width: '100%',
-    qid: 0,
     step: 0,
   };
 
@@ -38,15 +37,14 @@ class HWJsend extends PureComponent {
   }
 
   questionOnChange = value => {
-    const { dispatch, form } = this.props;
+    const { dispatch } = this.props;
     dispatch({
       type: 'hwj/queryQuestInfo',
       payload: {
         qid: value,
       },
       callback: (qid, step) => {
-        this.setState({ qid, step });
-        form.resetFields();
+        this.setState({ step });
       },
     });
   };
@@ -108,20 +106,21 @@ class HWJsend extends PureComponent {
       form: { validateFieldsAndScroll },
       dispatch,
       selectedUserIds,
+      questList,
     } = this.props;
-    const { qid } = this.state;
     validateFieldsAndScroll((error, values) => {
       if (!error) {
+        const thisQuest = questList.find(item => item.qid === values.qid);
         dispatch({
           type: 'hwj/finalSubmit',
           payload: {
             ...values,
-            qid,
             selectedUserIds,
+            qname: thisQuest.name,
             jwt: localStorage.getItem('hzttweb-jwt'),
           },
           callback: () => {
-            this.setState({ step: 0, qid: 0 });
+            this.setState({ step: 0 });
             message.success('提交成功！');
           },
         });
@@ -203,17 +202,19 @@ class HWJsend extends PureComponent {
               </div>
             </Col>
             <Col span={16}>
-              <Select
-                style={{ width: '100%' }}
-                placeholder="请选择需要发送的问卷"
-                onChange={this.questionOnChange}
-              >
-                {questList.map(item => (
-                  <Option key={item.qid} value={item.qid}>
-                    问卷名称：{item.name}；问卷ID：{item.qid}；开始时间：{item.begindate}
-                  </Option>
-                ))}
-              </Select>
+              {form.getFieldDecorator('qid')(
+                <Select
+                  style={{ width: '100%' }}
+                  placeholder="请选择需要发送的问卷"
+                  onChange={this.questionOnChange}
+                >
+                  {questList.map(item => (
+                    <Option key={item.qid} label={item.name}>
+                      问卷名称：{item.name}；问卷ID：{item.qid}；开始时间：{item.begindate}
+                    </Option>
+                  ))}
+                </Select>
+              )}
             </Col>
           </Row>
           <Row>
