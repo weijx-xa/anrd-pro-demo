@@ -64,6 +64,11 @@ export default [
             name: 'send',
             component: './Hwjpage/send',
           },
+          {
+            path: '/dcwj/answer',
+            name: 'answer',
+            component: './Hwjpage/answer',
+          },
         ],
       },
       // // forms

@@ -45,4 +45,5 @@ export default {
   'menu.dcwj': '调查问卷',
   'menu.dcwj.edit': '编辑问卷',
   'menu.dcwj.send': '发送问卷',
+  'menu.dcwj.answer': '答案（暂时）',
 };

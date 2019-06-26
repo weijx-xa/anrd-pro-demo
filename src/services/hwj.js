@@ -30,3 +30,7 @@ export async function postFinalSubmit(params) {
     data: params,
   });
 }
+
+export async function getAnswerList() {
+  return request(`/hwj/showAnswerList`);
+}

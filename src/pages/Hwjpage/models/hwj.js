@@ -4,6 +4,7 @@ import {
   getQuestInfo,
   postUserList,
   postFinalSubmit,
+  getAnswerList,
 } from '@/services/hwj';
 import moment from 'moment';
 
@@ -19,6 +20,7 @@ export default {
     colName: [],
     sendUsers: [],
     selectedUserIds: [],
+    answerList: [],
   },
 
   effects: {
@@ -95,6 +97,13 @@ export default {
         callback();
       }
     },
+    *queryAnswerList({ payload }, { call, put }) {
+      const response = yield call(getAnswerList, payload);
+      yield put({
+        type: 'saveAnswerList',
+        payload: Array.isArray(response) ? response : [],
+      });
+    },
   },
 
   reducers: {
@@ -102,6 +111,12 @@ export default {
       return {
         ...state,
         questList: payload,
+      };
+    },
+    saveAnswerList(state, { payload }) {
+      return {
+        ...state,
+        answerList: payload,
       };
     },
     saveQuestInfo(state, { payload }) {
