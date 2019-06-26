@@ -5,6 +5,7 @@
 import { extend } from 'umi-request';
 import { notification } from 'antd';
 import router from 'umi/router';
+import { getCookie } from './utils';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -67,6 +68,7 @@ const errorHandler = error => {
 const request = extend({
   errorHandler, // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
+  params: { _csrf: getCookie('csrfToken') }, // 同步表单的 CSRF 校验
 });
 
 export default request;
