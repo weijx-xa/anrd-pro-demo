@@ -34,3 +34,7 @@ export async function postFinalSubmit(params) {
 export async function getAnswerList() {
   return request(`/hwj/showAnswerList`);
 }
+
+export async function getAnswerInfos(params) {
+  return request(`/hwj/quertQuestInfo?${stringify(params)}`);
+}

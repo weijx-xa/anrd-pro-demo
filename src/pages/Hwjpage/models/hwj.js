@@ -5,6 +5,7 @@ import {
   postUserList,
   postFinalSubmit,
   getAnswerList,
+  getAnswerInfos,
 } from '@/services/hwj';
 import moment from 'moment';
 
@@ -21,6 +22,7 @@ export default {
     sendUsers: [],
     selectedUserIds: [],
     answerList: [],
+    answerInfo: {},
   },
 
   effects: {
@@ -30,6 +32,31 @@ export default {
         type: 'saveQuestList',
         payload: Array.isArray(response) ? response : [],
       });
+    },
+    *queryAnswerInfo({ payload, callback }, { call }) {
+      const response = yield call(getAnswerInfos, { qid: payload.activity });
+      if (typeof response.data !== 'undefined' && Array.isArray(response.data)) {
+        // 有返回试卷
+        const answerInfo = response.data;
+        const answer = JSON.parse(payload.answer);
+        const contents = Object.keys(answer).map(qid => {
+          const thisQuest = answerInfo.find(item => item.indexOf(`${qid}:`) !== -1);
+          const thisAnswer = () => {
+            // 没有答案不是选择题
+            if (!answerInfo.some(item => item.indexOf(`${qid}#1`) !== -1)) return answer[qid];
+            // 是不是多选
+            const answers = answer[qid].split(',');
+            if (answers.length === 1) {
+              return answerInfo.find(item => item.indexOf(`${qid}#${answer[qid]}:`) !== -1);
+            }
+            return answers
+              .map(aid => answerInfo.find(item2 => item2.indexOf(`${qid}#${aid}:`) !== -1))
+              .join(',');
+          };
+          return `${thisQuest}${thisAnswer()}`;
+        });
+        callback(contents);
+      }
     },
     *queryQuestInfo({ payload, callback }, { call, put }) {
       const response = yield call(getQuestInfo, payload);
@@ -125,6 +152,12 @@ export default {
         questInfo: payload.questInfo,
         sendUsers: payload.sendUsers,
         selectedUserIds: payload.questInfo.selectedUserIds,
+      };
+    },
+    saveAnswerInfo(state, { payload }) {
+      return {
+        ...state,
+        answerInfo: { ...state.answerInfo, [payload.qid]: payload.data },
       };
     },
     saveDepList(state, { payload }) {
