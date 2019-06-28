@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
-import { Table, Card, Tooltip, Modal } from 'antd';
+import { Table, Card, Tooltip, Modal, Tag } from 'antd';
 import { connect } from 'dva';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import moment from 'moment';
+import { getTimelength } from '@/utils/utils';
 import styles from './style.less';
 
 const answerInfo = [
@@ -57,10 +58,25 @@ class AnswerList extends PureComponent {
     const answer = JSON.parse(record.answer);
     const contents = Object.keys(answer).map(qid => {
       const thisQuest = answerInfo.find(item => item.indexOf(`${qid}:`) !== -1);
-      const thisAnswer = answerInfo.find(item => item.indexOf(`${qid}#${answer[qid]}:`) !== -1);
+      const thisAnswer = () => {
+        // 没有答案不是选择题
+        if (answerInfo.some(item => item.indexOf(`${qid}#1`) === -1)) return answer[qid];
+        // 是不是多选
+        const answers = answer[qid].split(',');
+        console.log(answers);
+
+        if (answers.length === 1) {
+          return answerInfo.find(item => item.indexOf(`${qid}#${answer[qid]}:`) !== -1);
+        }
+        return answers
+          .map(aid => answerInfo.find(item2 => item2.indexOf(`${qid}#${aid}:`) !== -1))
+          .join(',');
+      };
+
       return (
         <p key={qid}>
-          {thisQuest}:{thisAnswer}
+          {thisQuest}
+          {thisAnswer()}
         </p>
       );
     });
@@ -75,6 +91,11 @@ class AnswerList extends PureComponent {
   render() {
     const { answerList, loading } = this.props;
     const columns = [
+      {
+        title: '类型',
+        dataIndex: 'fullscore',
+        render: text => (text ? <Tag color="blue">考试</Tag> : <Tag color="green">问卷</Tag>),
+      },
       {
         title: '答题人',
         dataIndex: '姓名',
@@ -101,30 +122,26 @@ class AnswerList extends PureComponent {
         dataIndex: '用工方式',
       },
       {
-        title: '试卷ID',
-        dataIndex: 'activity',
-      },
-      {
         title: '试卷名称',
         dataIndex: 'name',
+        render: (text, record) => <Tooltip title={`ID:${record.activity}`}>{text}</Tooltip>,
       },
       {
         title: '提交时间',
         dataIndex: 'submittime',
-        render: text => moment(text).format('MM月DD日 H:mm'),
+        render: text => moment(text).format('M-DD H:mm'),
       },
       {
         title: '答题时长',
         dataIndex: 'timetaken',
-        render: text =>
-          `${moment.duration(text).get('hours')}小时${moment.duration(text).get('minutes')}分钟`,
+        render: text => getTimelength(text),
       },
       {
         title: '得分',
-        dataIndex: 'fullscore',
+        dataIndex: 'totalvalue',
         render: (text, record) => (
           <span>
-            {record.fullscore}/{record.totalvalue}
+            {record.totalvalue}/{record.fullscore}
           </span>
         ),
       },

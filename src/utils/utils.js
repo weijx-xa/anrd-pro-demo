@@ -7,6 +7,12 @@ export function fixedZero(val) {
   return val * 1 < 10 ? `0${val}` : val;
 }
 
+export function getTimelength(num) {
+  if (num < 60) return `${num}秒`;
+  if (num < 3600) return `${Math.floor(num / 60)}分${num % 60}秒`;
+  return `${Math.floor(num / 3600)}小时${Math.floor((num % 3600) / 60)}分${num % 60}秒`;
+}
+
 export function getTimeDistance(type) {
   const now = new Date();
   const oneDay = 1000 * 60 * 60 * 24;
