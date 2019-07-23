@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-import { Card, Button, Form, Select, Row, Col, Table, message } from 'antd';
+import { Card, Button, Form, Select, Row, Col, Table, message, Popover } from 'antd';
 import { connect } from 'dva';
+import QRCode from 'qrcode.react';
 import FooterToolbar from '@/components/FooterToolbar';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TagsSelect from './TagsSelect';
@@ -214,6 +215,24 @@ class HWJsend extends PureComponent {
                     </Option>
                   ))}
                 </Select>
+              )}
+            </Col>
+            <Col span={4}>
+              {typeof questInfo.qid !== 'undefined' && (
+                <div style={{ marginTop: 10, marginLeft: 20 }}>
+                  <Popover
+                    content={
+                      <QRCode
+                        value={`http://sxtsqy.cttsn.com:7001/hwjwx/jump?qid=${questInfo.qid}`}
+                        size={150}
+                        level="L"
+                      />
+                    }
+                    title="分享二维码到微信"
+                  >
+                    <a>二维码</a>
+                  </Popover>
+                </div>
               )}
             </Col>
           </Row>
