@@ -119,4 +119,5 @@ export default {
   chainWebpack: webpackPlugin,
   base: '/hwjpage/',
   publicPath: 'https://alipublic.oss-cn-beijing.aliyuncs.com/hwjpage/',
+  hash: true,
 };

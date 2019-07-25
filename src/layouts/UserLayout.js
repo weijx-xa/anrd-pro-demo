@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { formatMessage } from 'umi-plugin-react/locale';
+// import { formatMessage } from 'umi-plugin-react/locale';
 import { connect } from 'dva';
 import Link from 'umi/link';
 import { Icon } from 'antd';
@@ -10,27 +10,27 @@ import styles from './UserLayout.less';
 import logo from '../assets/cmlogo.png';
 import getPageTitle from '@/utils/getPageTitle';
 
-const links = [
-  {
-    key: 'help',
-    title: formatMessage({ id: 'layout.user.link.help' }),
-    href: '',
-  },
-  {
-    key: 'privacy',
-    title: formatMessage({ id: 'layout.user.link.privacy' }),
-    href: '',
-  },
-  {
-    key: 'terms',
-    title: formatMessage({ id: 'layout.user.link.terms' }),
-    href: '',
-  },
-];
+// const links = [
+//   {
+//     key: 'help',
+//     title: formatMessage({ id: 'layout.user.link.help' }),
+//     href: '',
+//   },
+//   {
+//     key: 'privacy',
+//     title: formatMessage({ id: 'layout.user.link.privacy' }),
+//     href: '',
+//   },
+//   {
+//     key: 'terms',
+//     title: formatMessage({ id: 'layout.user.link.terms' }),
+//     href: '',
+//   },
+// ];
 
 const copyright = (
   <Fragment>
-    Copyright <Icon type="copyright" /> 2019 蚂蚁金服体验技术部出品
+    Copyright <Icon type="copyright" /> 2019 中移铁通有限公司陕西分公司
   </Fragment>
 );
 
@@ -66,11 +66,11 @@ class UserLayout extends Component {
                   <span className={styles.title}>综合作业信息导航系统</span>
                 </Link>
               </div>
-              <div className={styles.desc}>暂时只包含和问卷</div>
+              <div className={styles.desc}>暂时只包含调查问卷</div>
             </div>
             {children}
           </div>
-          <GlobalFooter links={links} copyright={copyright} />
+          <GlobalFooter copyright={copyright} />
         </div>
       </DocumentTitle>
     );

@@ -17,7 +17,7 @@ class MyLoginPage extends Component {
   componentDidMount = () => {
     const { dispatch } = this.props;
 
-    this.socket = io('https://ali.hzttweb.com:7001/example', {
+    this.socket = io('http://sxtsqy.cttsn.com:7001/login', {
       // 实际使用中可以在这里传递参数
       // query: {
       //   userId: 1
@@ -60,7 +60,7 @@ class MyLoginPage extends Component {
 
   render() {
     const { loginToken } = this.state;
-    const wxauthurl = `https://ali.hzttweb.com:7001/login/pc_redirect?token=${loginToken}`;
+    const wxauthurl = `http://sxtsqy.cttsn.com:7001/login/redirect?token=sxttpc_${loginToken}`;
     return (
       <div className={styles.main}>
         <div className={styles.loginbox}>
