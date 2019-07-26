@@ -9,17 +9,17 @@ import Exception403 from '@/pages/Exception/403';
 function AuthComponent({ children, location, routerData }) {
   const auth = getAuthority();
   const isLogin = auth && auth[0] !== 'guest';
-  const getRouteAuthority = (path, routeData) => {
+  const getRouteAuthority = path => {
     let authorities;
-    routeData.forEach(route => {
+    routerData.forEach(route => {
       // match prefix
       if (pathToRegexp(`${route.path}(.*)`).test(path)) {
         authorities = route.authority || authorities;
 
         // get children authority recursively
-        if (route.routes) {
-          authorities = getRouteAuthority(path, route.routes) || authorities;
-        }
+        // if (route.routes.authority) {
+        //   authorities = getRouteAuthority(path, route.routes) || authorities;
+        // }
       }
     });
     return authorities;

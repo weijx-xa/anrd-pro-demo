@@ -55,6 +55,7 @@ export default {
       });
       reloadAuthorized();
       const { redirect } = getPageQuery();
+      localStorage.removeItem('hzttweb-jwt');
       // redirect
       if (window.location.pathname !== '/user/login' && !redirect) {
         yield put(

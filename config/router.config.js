@@ -22,6 +22,7 @@ export default [
     path: '/',
     component: '../layouts/BasicLayout',
     Routes: ['src/pages/Authorized'],
+    authority: ['admin', 'user'],
     routes: [
       // dashboard
       { path: '/', redirect: '/home' },
@@ -29,44 +30,32 @@ export default [
         path: '/home',
         name: 'home',
         icon: 'home',
+        authority: ['admin', 'user'],
         component: './Home/index',
-        // routes: [
-        //   {
-        //     path: '/dashboard/analysis',
-        //     name: 'analysis',
-        //     component: './Dashboard/Analysis',
-        //   },
-        //   {
-        //     path: '/dashboard/monitor',
-        //     name: 'monitor',
-        //     component: './Dashboard/Monitor',
-        //   },
-        //   {
-        //     path: '/dashboard/workplace',
-        //     name: 'workplace',
-        //     component: './Dashboard/Workplace',
-        //   },
-        // ],
       },
       // 和问卷
       {
         path: '/dcwj',
         name: 'dcwj',
         icon: 'edit',
+        authority: ['admin', 'user'],
         routes: [
           {
             path: '/dcwj/edit',
             name: 'edit',
+            authority: ['admin', 'user'],
             component: './Hwjpage/index',
           },
           {
             path: '/dcwj/send',
             name: 'send',
+            authority: ['admin', 'user'],
             component: './Hwjpage/send',
           },
           {
             path: '/dcwj/answer',
             name: 'answer',
+            authority: ['admin', 'user'],
             component: './Hwjpage/answer',
           },
         ],
@@ -233,64 +222,64 @@ export default [
           },
         ],
       },
-      {
-        name: 'account',
-        icon: 'user',
-        path: '/account',
-        hideInMenu: true,
-        routes: [
-          {
-            path: '/account/center',
-            name: 'center',
-            component: './Account/Center/Center',
-            routes: [
-              {
-                path: '/account/center',
-                redirect: '/account/center/articles',
-              },
-              {
-                path: '/account/center/articles',
-                component: './Account/Center/Articles',
-              },
-              {
-                path: '/account/center/applications',
-                component: './Account/Center/Applications',
-              },
-              {
-                path: '/account/center/projects',
-                component: './Account/Center/Projects',
-              },
-            ],
-          },
-          {
-            path: '/account/settings',
-            name: 'settings',
-            component: './Account/Settings/Info',
-            routes: [
-              {
-                path: '/account/settings',
-                redirect: '/account/settings/base',
-              },
-              {
-                path: '/account/settings/base',
-                component: './Account/Settings/BaseView',
-              },
-              {
-                path: '/account/settings/security',
-                component: './Account/Settings/SecurityView',
-              },
-              {
-                path: '/account/settings/binding',
-                component: './Account/Settings/BindingView',
-              },
-              {
-                path: '/account/settings/notification',
-                component: './Account/Settings/NotificationView',
-              },
-            ],
-          },
-        ],
-      },
+      // {
+      //   name: 'account',
+      //   icon: 'user',
+      //   path: '/account',
+      //   hideInMenu: true,
+      //   routes: [
+      //     {
+      //       path: '/account/center',
+      //       name: 'center',
+      //       component: './Account/Center/Center',
+      //       routes: [
+      //         {
+      //           path: '/account/center',
+      //           redirect: '/account/center/articles',
+      //         },
+      //         {
+      //           path: '/account/center/articles',
+      //           component: './Account/Center/Articles',
+      //         },
+      //         {
+      //           path: '/account/center/applications',
+      //           component: './Account/Center/Applications',
+      //         },
+      //         {
+      //           path: '/account/center/projects',
+      //           component: './Account/Center/Projects',
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       path: '/account/settings',
+      //       name: 'settings',
+      //       component: './Account/Settings/Info',
+      //       routes: [
+      //         {
+      //           path: '/account/settings',
+      //           redirect: '/account/settings/base',
+      //         },
+      //         {
+      //           path: '/account/settings/base',
+      //           component: './Account/Settings/BaseView',
+      //         },
+      //         {
+      //           path: '/account/settings/security',
+      //           component: './Account/Settings/SecurityView',
+      //         },
+      //         {
+      //           path: '/account/settings/binding',
+      //           component: './Account/Settings/BindingView',
+      //         },
+      //         {
+      //           path: '/account/settings/notification',
+      //           component: './Account/Settings/NotificationView',
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // },
       // //  editor
       // {
       //   name: 'editor',
