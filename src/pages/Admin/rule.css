@@ -1,0 +1,54 @@
+.search {
+  width: 200px;
+  margin-right: 10px;
+}
+.actionrow {
+  background-color: #fffeee;
+}
+.statuscol {
+  min-width: 122px;
+}
+.namecol {
+  min-width: 166px;
+}
+.trans {
+  margin-left: 6vw;
+}
+
+
+.tree {
+  border:1px solid #ebedf0;
+  border-radius: 5px;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  width: 25vw;
+  height: 50vh;
+  /* padding-top: 34px; */
+  overflow-y: auto;
+}
+.operation {
+  display: inline-block;
+  overflow: hidden;
+  margin: 0 8px;
+  vertical-align: middle;
+}
+
+.operation Button {
+  display: block;
+}
+
+.operation :first-child {
+  margin-bottom: 16px;
+}
+
+.treesearch {
+  /* position: absolute; */
+  top: 0;
+  left: 0;
+  padding: 4px;
+  width: 100%;
+}
+.treetitle {
+  padding: 4px;
+}

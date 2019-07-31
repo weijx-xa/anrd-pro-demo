@@ -46,4 +46,8 @@ export default {
   'menu.dcwj.edit': '编辑问卷',
   'menu.dcwj.send': '发送问卷',
   'menu.dcwj.answer': '答案（暂时）',
+  'menu.admin': '权限管理',
+  'menu.admin.rule': '规则菜单',
+  'menu.admin.group': '用户组管理',
+  'menu.admin.notices': '通知公告',
 };

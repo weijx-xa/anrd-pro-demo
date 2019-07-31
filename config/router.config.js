@@ -60,143 +60,32 @@ export default [
           },
         ],
       },
-      // // forms
-      // {
-      //   path: '/form',
-      //   icon: 'form',
-      //   name: 'form',
-      //   routes: [
-      //     {
-      //       path: '/form/basic-form',
-      //       name: 'basicform',
-      //       component: './Forms/BasicForm',
-      //     },
-      //     {
-      //       path: '/form/step-form',
-      //       name: 'stepform',
-      //       component: './Forms/StepForm',
-      //       hideChildrenInMenu: true,
-      //       routes: [
-      //         {
-      //           path: '/form/step-form',
-      //           redirect: '/form/step-form/info',
-      //         },
-      //         {
-      //           path: '/form/step-form/info',
-      //           name: 'info',
-      //           component: './Forms/StepForm/Step1',
-      //         },
-      //         {
-      //           path: '/form/step-form/confirm',
-      //           name: 'confirm',
-      //           component: './Forms/StepForm/Step2',
-      //         },
-      //         {
-      //           path: '/form/step-form/result',
-      //           name: 'result',
-      //           component: './Forms/StepForm/Step3',
-      //         },
-      //       ],
-      //     },
-      //     {
-      //       path: '/form/advanced-form',
-      //       name: 'advancedform',
-      //       authority: ['admin'],
-      //       component: './Forms/AdvancedForm',
-      //     },
-      //   ],
-      // },
-      // // list
-      // {
-      //   path: '/list',
-      //   icon: 'table',
-      //   name: 'list',
-      //   routes: [
-      //     {
-      //       path: '/list/table-list',
-      //       name: 'searchtable',
-      //       component: './List/TableList',
-      //     },
-      //     {
-      //       path: '/list/basic-list',
-      //       name: 'basiclist',
-      //       component: './List/BasicList',
-      //     },
-      //     {
-      //       path: '/list/card-list',
-      //       name: 'cardlist',
-      //       component: './List/CardList',
-      //     },
-      //     {
-      //       path: '/list/search',
-      //       name: 'searchlist',
-      //       component: './List/List',
-      //       routes: [
-      //         {
-      //           path: '/list/search',
-      //           redirect: '/list/search/articles',
-      //         },
-      //         {
-      //           path: '/list/search/articles',
-      //           name: 'articles',
-      //           component: './List/Articles',
-      //         },
-      //         {
-      //           path: '/list/search/projects',
-      //           name: 'projects',
-      //           component: './List/Projects',
-      //         },
-      //         {
-      //           path: '/list/search/applications',
-      //           name: 'applications',
-      //           component: './List/Applications',
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
-      // {
-      //   path: '/profile',
-      //   name: 'profile',
-      //   icon: 'profile',
-      //   routes: [
-      //     // profile
-      //     {
-      //       path: '/profile/basic',
-      //       name: 'basic',
-      //       component: './Profile/BasicProfile',
-      //     },
-      //     {
-      //       path: '/profile/basic/:id',
-      //       hideInMenu: true,
-      //       component: './Profile/BasicProfile',
-      //     },
-      //     {
-      //       path: '/profile/advanced',
-      //       name: 'advanced',
-      //       authority: ['admin'],
-      //       component: './Profile/AdvancedProfile',
-      //     },
-      //   ],
-      // },
-      // {
-      //   name: 'result',
-      //   icon: 'check-circle-o',
-      //   path: '/result',
-      //   routes: [
-      //     // result
-      //     {
-      //       path: '/result/success',
-      //       name: 'success',
-      //       component: './Result/Success',
-      //     },
-      //     { path: '/result/fail', name: 'fail', component: './Result/Error' },
-      //   ],
-      // },
+      // 权限管理
+      {
+        path: '/admin',
+        name: 'admin',
+        icon: 'solution',
+        authority: ['admin'],
+        routes: [
+          {
+            path: '/admin/group',
+            name: 'group',
+            authority: ['admin'],
+            component: './Admin/group',
+          },
+          {
+            path: '/admin/rule',
+            name: 'rule',
+            authority: ['admin'],
+            component: './Admin/rule',
+          },
+        ],
+      },
       {
         name: 'exception',
         icon: 'warning',
         path: '/exception',
+        hideInMenu: true,
         routes: [
           // exception
           {
@@ -277,29 +166,6 @@ export default [
       //           component: './Account/Settings/NotificationView',
       //         },
       //       ],
-      //     },
-      //   ],
-      // },
-      // //  editor
-      // {
-      //   name: 'editor',
-      //   icon: 'highlight',
-      //   path: '/editor',
-      //   routes: [
-      //     {
-      //       path: '/editor/flow',
-      //       name: 'flow',
-      //       component: './Editor/GGEditor/Flow',
-      //     },
-      //     {
-      //       path: '/editor/mind',
-      //       name: 'mind',
-      //       component: './Editor/GGEditor/Mind',
-      //     },
-      //     {
-      //       path: '/editor/koni',
-      //       name: 'koni',
-      //       component: './Editor/GGEditor/Koni',
       //     },
       //   ],
       // },
