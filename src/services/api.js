@@ -124,3 +124,10 @@ export async function queryNotices(params = {}) {
 export async function getFakeCaptcha(mobile) {
   return request(`/api/captcha?mobile=${mobile}`);
 }
+
+export async function queryDepartment(params) {
+  return request('/admin/post_dep_list', {
+    method: 'POST',
+    data: params,
+  });
+}

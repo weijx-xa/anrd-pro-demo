@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { Card, Table, Input, Badge, Divider, Button, Select, Radio } from 'antd';
 import { TweenOneGroup } from 'rc-tween-one';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-// import TransferModal from './modal';
+import TransferModal from './TransferModal';
 import styles from './rule.css';
 
 const { Search } = Input;
@@ -12,6 +12,7 @@ const { Option } = Select;
 const ruleStatus = [{ text: '停用', status: 'error' }, { text: '在用', status: 'success' }];
 
 const domains = {
+  0: '无权',
   1: '本人',
   2: '本级部门',
   3: '上一级部门',
@@ -31,9 +32,18 @@ class GroupPage extends React.Component {
         title: '角色名称',
         dataIndex: 'title',
         key: 'title',
+        width: 200,
         render: (text, record) => {
           if (record.editable) {
-            return <Input style={{ width: '10vw' }} placeholder="角色名称" />;
+            return (
+              <Input
+                value={text}
+                autoFocus
+                onChange={e => this.handleFieldChange(e, 'name', record.key)}
+                onKeyPress={e => this.handleKeyPress(e, record.key)}
+                placeholder="角色名称"
+              />
+            );
           }
           return text;
         },
@@ -42,6 +52,7 @@ class GroupPage extends React.Component {
         title: '可见范围',
         dataIndex: 'domain',
         key: 'domain',
+        width: 200,
         render: (text, record) => {
           if (record.editable) {
             return (
@@ -176,6 +187,11 @@ class GroupPage extends React.Component {
     return null;
   }
 
+  getRowByKey(key, newData) {
+    const { data } = this.state;
+    return (newData || data).filter(item => item.key === key)[0];
+  }
+
   newData = () => {
     const { data } = this.state;
     const target = data.filter(item => item.isNew)[0];
@@ -191,6 +207,22 @@ class GroupPage extends React.Component {
     this.index += 1;
     this.setState(prevState => ({ data: [newData, ...prevState.data] }));
   };
+
+  handleKeyPress(e, key) {
+    if (e.key === 'Enter') {
+      this.save(e, key);
+    }
+  }
+
+  handleFieldChange(e, fieldName, key) {
+    const { data } = this.state;
+    const newData = data.map(item => ({ ...item }));
+    const target = this.getRowByKey(key, newData);
+    if (target) {
+      target[fieldName] = e.target.value;
+      this.setState({ data: newData });
+    }
+  }
 
   edit(key) {
     const { data } = this.state;
@@ -263,7 +295,7 @@ class GroupPage extends React.Component {
       </TweenOneGroup>
     );
     return (
-      <PageHeaderWrapper title="用户组管理" content={content} action={action}>
+      <PageHeaderWrapper title="用户组管理" content={content} extraContent={action}>
         <Card bordered={false}>
           <Table
             dataSource={data}
@@ -274,7 +306,7 @@ class GroupPage extends React.Component {
             loading={loading}
           />
         </Card>
-        {/* <TransferModal /> */}
+        <TransferModal />
       </PageHeaderWrapper>
     );
   }

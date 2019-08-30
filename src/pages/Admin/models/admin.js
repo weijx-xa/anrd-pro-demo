@@ -6,9 +6,11 @@ export default {
   state: {
     userGroup: [],
     rules: [],
-    visible: false,
-    showModal: '',
-    thisTitle: '',
+    modalState: {
+      visible: false,
+      showModal: '',
+      thisTitle: '',
+    },
   },
 
   effects: {
@@ -21,7 +23,6 @@ export default {
     },
     *fetchRules(_, { call, put }) {
       const response = yield call(queryRules);
-      console.log(response);
       yield put({
         type: 'saveRules',
         payload: Array.isArray(response) ? response : [],
@@ -51,7 +52,7 @@ export default {
     changeModalState(state, { payload }) {
       return {
         ...state,
-        ...payload,
+        modalState: payload,
       };
     },
   },

@@ -1,4 +1,4 @@
-import { queryNotices } from '@/services/api';
+import { queryNotices, queryDepartment } from '@/services/api';
 
 export default {
   namespace: 'global',
@@ -6,6 +6,7 @@ export default {
   state: {
     collapsed: false,
     notices: [],
+    department: [],
   },
 
   effects: {
@@ -65,6 +66,13 @@ export default {
         },
       });
     },
+    *fetchDepartment(_, { call, put }) {
+      const data = yield call(queryDepartment);
+      yield put({
+        type: 'saveDepartment',
+        payload: data,
+      });
+    },
   },
 
   reducers: {
@@ -86,6 +94,12 @@ export default {
         notices: state.notices.filter(item => item.type !== payload),
       };
     },
+    saveDepartment(state, { payload }) {
+      return {
+        ...state,
+        department: payload,
+      };
+    },
   },
 
   subscriptions: {
@@ -95,6 +109,11 @@ export default {
         if (typeof window.ga !== 'undefined') {
           window.ga('send', 'pageview', pathname + search);
         }
+      });
+    },
+    initDepartment({ dispatch }) {
+      dispatch({
+        type: 'fetchDepartment',
       });
     },
   },
