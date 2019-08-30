@@ -50,4 +50,6 @@ export default {
   'menu.admin.rule': '规则菜单',
   'menu.admin.group': '用户组管理',
   'menu.admin.notices': '通知公告',
+  'menu.material': '物料管理',
+  'menu.material.mtype': '物料信息维护',
 };

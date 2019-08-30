@@ -60,6 +60,28 @@ export default [
           },
         ],
       },
+      // 物料管理
+      {
+        path: '/material',
+        name: 'material',
+        icon: 'reconciliation',
+        authority: ['admin', 'user'],
+        routes: [
+          // 物料信息维护
+          {
+            path: '/material/mtype',
+            name: 'mtype',
+            authority: ['admin', 'user'],
+            component: './Material/Mtype/index',
+          },
+          {
+            path: '/material/basicform',
+            name: 'basicform',
+            hideInMenu: true,
+            component: './Material/Mtype/BasicForm',
+          },
+        ],
+      },
       // 权限管理
       {
         path: '/admin',

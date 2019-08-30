@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "Type": "装维材料",
+    "Class": "预成端皮线光缆",
+    "Name": "室外预制成端蝶形光缆",
+    "mSize": "GJYXFCH(F1)1B6a(SC-SC)20M",
+    "description": "",
+    "yonyouId": "030102010101",
+    "mNum": 20,
+    "Units": "条",
+    "IsEnable": 1,
+    "Management": 0,
+    "Alarm": 60,
+    "Cost": 201.64,
+    "UpdateTime": "2016-10-01 00:00:00",
+    "Updater": 1
+  },
+  {
+    "id": 2,
+    "Type": "装维材料",
+    "Class": "跳纤",
+    "Name": "单芯单模跳纤(3.0mm/G.652D)",
+    "mSize": "3米 SC/UPC-SC/UPC",
+    "description": "",
+    "yonyouId": "030705010301",
+    "mNum": 5,
+    "Units": "条",
+    "IsEnable": 1,
+    "Management": 0,
+    "Alarm": 60,
+    "Cost": 201.64,
+    "UpdateTime": "2016-10-01 00:00:00",
+    "Updater": 1
+  }
+]

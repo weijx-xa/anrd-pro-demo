@@ -29,10 +29,6 @@ class TransferModal extends React.Component {
     });
   };
 
-  onChange = value => {
-    console.log(value);
-  };
-
   render() {
     const { modalState } = this.props;
     return (
