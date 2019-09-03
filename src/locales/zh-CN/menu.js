@@ -52,4 +52,7 @@ export default {
   'menu.admin.notices': '通知公告',
   'menu.material': '物料管理',
   'menu.material.mtype': '物料信息维护',
+  'menu.material.basicform': '物料信息添加',
+  'menu.reports': '报表门户',
+  'menu.reports.maindata': '重点指标',
 };

@@ -31,7 +31,47 @@ export default [
         name: 'home',
         icon: 'home',
         authority: ['admin', 'user'],
-        component: './Home/index',
+        routes: [
+          {
+            path: '/home/index',
+            name: 'index',
+            authority: ['admin', 'user'],
+            component: './Home/index',
+          },
+          {
+            path: '/home/index2',
+            name: 'index2',
+            authority: ['admin', 'user'],
+            component: './Home2/index',
+          },
+        ],
+      },
+      // 报表门户
+      {
+        path: '/reports',
+        name: 'reports',
+        icon: 'table',
+        authority: ['admin', 'user'],
+        routes: [
+          {
+            path: '/reports/maindata',
+            name: 'maindata',
+            authority: ['admin', 'user'],
+            component: './Reports/maindata',
+          },
+          // {
+          //   path: '/dcwj/send',
+          //   name: 'send',
+          //   authority: ['admin', 'user'],
+          //   component: './Hwjpage/send',
+          // },
+          // {
+          //   path: '/dcwj/answer',
+          //   name: 'answer',
+          //   authority: ['admin', 'user'],
+          //   component: './Hwjpage/answer',
+          // },
+        ],
       },
       // 和问卷
       {
