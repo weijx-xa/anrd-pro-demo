@@ -1,15 +1,10 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint no-undef: 0 */
 /* eslint arrow-parens: 0 */
 import React from 'react';
-import { enquireScreen } from 'enquire-js';
-
 import Content5 from './Content5';
+import Content2 from './Content2';
 import './less/antMotionStyle.less';
-
-let isMobile;
-enquireScreen((b) => {
-  isMobile = b;
-});
 
 const { location } = window;
 
@@ -37,9 +32,14 @@ export default class Home extends React.Component {
 
   render() {
     const children = [
+      // eslint-disable-next-line react/jsx-filename-extension
       <Content5
         id="Content5_0"
         key="Content5_0"
+      />,
+      <Content2
+        id="Content2_0"
+        key="Content2_0"
       />,
     ];
     return (

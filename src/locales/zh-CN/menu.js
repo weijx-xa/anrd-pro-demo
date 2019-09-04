@@ -53,6 +53,9 @@ export default {
   'menu.material': '物料管理',
   'menu.material.mtype': '物料信息维护',
   'menu.material.basicform': '物料信息添加',
+  'menu.material.excelImport': '入库单导入',
   'menu.reports': '报表门户',
   'menu.reports.maindata': '重点指标',
+  'menu.home.index': '首页1',
+  'menu.home.index2': '首页2',
 };

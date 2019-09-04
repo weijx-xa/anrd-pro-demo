@@ -189,6 +189,7 @@ class Home extends PureComponent {
       <PageHeaderWrapper
         title="首页"
         content="我的应用"
+        hiddenBreadcrumb
       >
         <Card title="总部系统" className={styles.card} bordered={false}>
           {toNewLinks(links3).map((item) => (

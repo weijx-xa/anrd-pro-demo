@@ -9,7 +9,7 @@ export default {
       {
         name: 'content',
         className: 'title-content',
-        children: '在这里用一段话介绍服务的案例情况',
+        children: '这里展示的是集团系统',
       },
     ],
   },
@@ -24,6 +24,7 @@ export default {
         xs: 24,
         children: {
           wrapper: { className: 'content5-block-content' },
+          link: 'https://wangda.andedu.net/oauth/#login/295946ce6debe526003ea00b45b5c0da',
           img: {
             children:
               'https://alipublic.oss-cn-beijing.aliyuncs.com/img/img_logo/%E4%B8%AD%E7%A7%BB%E7%BD%91%E5%A4%A7.png',
@@ -71,62 +72,6 @@ export default {
               'https://alipublic.oss-cn-beijing.aliyuncs.com/img/img_logo/%E7%94%B5%E5%95%86%E5%B9%B3%E5%8F%B0.png',
           },
           content: { children: '电商平台' },
-        },
-      },
-      {
-        name: 'block4',
-        className: 'block',
-        md: 4,
-        xs: 24,
-        children: {
-          wrapper: { className: 'content5-block-content' },
-          img: {
-            children:
-              'https://t.alipayobjects.com/images/rmsweb/T11aVgXc4eXXXXXXXX.svg',
-          },
-          content: { children: 'Ant Design' },
-        },
-      },
-      {
-        name: 'block5',
-        className: 'block',
-        md: 4,
-        xs: 24,
-        children: {
-          wrapper: { className: 'content5-block-content' },
-          img: {
-            children:
-              'https://zos.alipayobjects.com/rmsportal/faKjZtrmIbwJvVR.svg',
-          },
-          content: { children: 'Ant Motion' },
-        },
-      },
-      {
-        name: 'block6',
-        className: 'block',
-        md: 4,
-        xs: 24,
-        children: {
-          wrapper: { className: 'content5-block-content' },
-          img: {
-            children:
-              'https://t.alipayobjects.com/images/rmsweb/T11aVgXc4eXXXXXXXX.svg',
-          },
-          content: { children: 'Ant Design' },
-        },
-      },
-      {
-        name: 'block7',
-        className: 'block',
-        md: 4,
-        xs: 24,
-        children: {
-          wrapper: { className: 'content5-block-content' },
-          img: {
-            children:
-              'https://zos.alipayobjects.com/rmsportal/faKjZtrmIbwJvVR.svg',
-          },
-          content: { children: 'Ant Motion' },
         },
       },
     ],

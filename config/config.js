@@ -117,7 +117,7 @@ export default {
   },
 
   // chainWebpack: webpackPlugin,
-  base: '/hwjpage/',
-  publicPath: 'https://alipublic.oss-cn-beijing.aliyuncs.com/hwjpage/',
+  base: '/home/',
+  publicPath: 'https://alipublic.oss-cn-beijing.aliyuncs.com/home/',
   hash: true,
 };

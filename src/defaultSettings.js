@@ -1,15 +1,15 @@
 module.exports = {
-  navTheme: 'dark', // theme for nav menu
+  navTheme: 'light', // theme for nav menu
   primaryColor: '#1890FF', // primary color of ant design
-  layout: 'sidemenu', // nav menu position: sidemenu or topmenu
-  contentWidth: 'Fluid', // layout of content: Fluid or Fixed, only works when layout is topmenu
-  fixedHeader: false, // sticky header
+  layout: 'topmenu', // nav menu position: sidemenu or topmenu
+  contentWidth: 'Fixed', // layout of content: Fluid or Fixed, only works when layout is topmenu
+  fixedHeader: true, // sticky header
   autoHideHeader: false, // auto hide header
   fixSiderbar: false, // sticky siderbar
   menu: {
     disableLocal: false,
   },
-  title: '统一门户',
+  title: '陕西铁通统一信息门户',
   pwa: false,
   // Your custom iconfont Symbol script Url
   // eg：//at.alicdn.com/t/font_1039637_btcrd5co4w.js
@@ -17,3 +17,21 @@ module.exports = {
   // Usage: https://github.com/ant-design/ant-design-pro/pull/3517
   iconfontUrl: '',
 };
+
+
+// {
+//   "navTheme": "light",
+//   "primaryColor": "#1890FF",
+//   "layout": "topmenu",
+//   "contentWidth": "Fixed",
+//   "fixedHeader": true,
+//   "autoHideHeader": false,
+//   "fixSiderbar": false,
+//   "menu": {
+//     "disableLocal": false
+//   },
+//   "title": "陕西铁通统一门户",
+//   "pwa": false,
+//   "iconfontUrl": "",
+//   "collapse": true
+// }

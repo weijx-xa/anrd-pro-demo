@@ -25,7 +25,7 @@ export default [
     authority: ['admin', 'user'],
     routes: [
       // dashboard
-      { path: '/', redirect: '/home' },
+      { path: '/', redirect: '/home/index' },
       {
         path: '/home',
         name: 'home',
@@ -119,6 +119,11 @@ export default [
             name: 'basicform',
             hideInMenu: true,
             component: './Material/Mtype/BasicForm',
+          },
+          {
+            path: '/material/excelImport',
+            name: 'excelImport',
+            component: './Material/warehouse/ExcelImport',
           },
         ],
       },
