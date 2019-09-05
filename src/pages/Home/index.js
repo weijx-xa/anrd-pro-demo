@@ -3,6 +3,59 @@ import { Row, Col, Card, Avatar, Divider } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import styles from './style.less';
 
+// 陕西铁通
+const links1 = [
+  {
+    key: 0,
+    name: '陕西OA',
+    link: 'http://61.236.251.150/SDOA/sysadmin.nsf/index?openframeset',
+    img: '陕西OA.png',
+  },
+  {
+
+    key: 1,
+    name: '资源管理',
+    link: '',
+    img: '资源管理.png',
+  },
+  {
+    key: 2,
+    name: '人员管理',
+    link: '',
+    img: '人员管理.png',
+  },
+  {
+    key: 4,
+    name: '统计分析',
+    link: '',
+    img: '统计分析.png',
+  },
+  {
+    key: 5,
+    name: '问卷调查',
+    link: '',
+    img: '问卷调查.png',
+  },
+  {
+    key: 6,
+    name: "物料管理",
+    link: '',
+    img: '物料管理.png',
+  },
+  {
+    key: 6,
+    name: '小区信息核查',
+    link: '',
+    img: '小区信息核查.png',
+  },
+  {
+    key: 7,
+    name: '仪器仪表维修',
+    link: '',
+    img: '仪器仪表维修.png',
+  }
+]
+// 集团系统
 const links2 = [
   {
     key: 1,
@@ -35,7 +88,7 @@ const links2 = [
     img: '招标.png',
   }
 ]
-
+// 总部系统
 const links3 = [
   {
     key: 1,
@@ -46,7 +99,7 @@ const links3 = [
   {
     key: 2,
     name: '报账平台',
-    link: 'http://10.0.176.164/',
+    link: 'https://211.98.239.122/prx/000/http/localhost/login',
     img: '报账平台.png',
   },
   {
@@ -129,26 +182,17 @@ const links3 = [
     name: '人力资源办公管理系统',
     link: '',
     img: '人力资源.png',
-  }
-  ,
-  {
-    key: 15,
-    name: '通技中心综合办公系统',
-    link: '',
-    img: '通技中心综合办公系统.png',
-  }
-  ,
+  },
   {
     key: 16,
     name: '资源管理信息系统',
     link: '',
     img: '资源管理.png',
-  }
-  ,
+  },
   {
     key: 17,
     name: '供应链',
-    link: '',
+    link: 'http://10.0.40.66:9080/index.jsp',
     img: '供应链.png',
   }
 ]
@@ -173,18 +217,6 @@ const ossLink = 'https://alipublic.oss-cn-beijing.aliyuncs.com/img/';
 
 class Home extends PureComponent {
   render() {
-    // const count = links.length;
-    // const newLinks = [];
-    // for (let index = 0; index < count; index += 1) {
-    //   const rowKey = Math.floor(index / 6);
-    //   if (typeof newLinks[rowKey] === 'undefined') {
-    //     newLinks[rowKey] = {
-    //       rowKey,
-    //       rowData: [],
-    //     };
-    //   }
-    //   newLinks[rowKey].rowData.push(links[index]);
-    // }
     return (
       <PageHeaderWrapper
         title="首页"
@@ -193,6 +225,20 @@ class Home extends PureComponent {
       >
         <Card title="总部系统" className={styles.card} bordered={false}>
           {toNewLinks(links3).map((item) => (
+            <Row gutter={16} style={{ marginBottom: 20 }} key={item.rowKey}>
+              {item.rowData.map(item2 => (
+                <Col className="gutter-row" span={4} key={item2.key}>
+                  <a style={{ textAlign: 'center' }} href={item2.link} target="_blank" rel="noopener noreferrer">
+                    <div><Avatar shape="square" size={64} src={`${ossLink}${item2.img}`} /></div>
+                    <div><span style={{ color: 'rgba(0, 0, 0, 0.65)' }}>{item2.name}</span></div>
+                  </a>
+                </Col>
+              ))}
+            </Row>
+          ))}
+          <h1>陕西铁通</h1>
+          <Divider />
+          {toNewLinks(links1).map((item) => (
             <Row gutter={16} style={{ marginBottom: 20 }} key={item.rowKey}>
               {item.rowData.map(item2 => (
                 <Col className="gutter-row" span={4} key={item2.key}>

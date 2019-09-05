@@ -31,6 +31,7 @@ export default [
         name: 'home',
         icon: 'home',
         authority: ['admin', 'user'],
+        // component: './Home/index',
         routes: [
           {
             path: '/home/index',
@@ -120,11 +121,36 @@ export default [
             hideInMenu: true,
             component: './Material/Mtype/BasicForm',
           },
+
           {
             path: '/material/excelImport',
             name: 'excelImport',
-            component: './Material/warehouse/ExcelImport',
+            component: './Material/Warehouse/ExcelImport/',
+            hideChildrenInMenu: true,
+            routes: [
+              {
+                path: '/material/excelImport',
+                redirect: '/material/excelImport/info',
+              },
+              {
+                path: '/material/excelImport/info',
+                name: 'info',
+                component: './Material/Warehouse/ExcelImport/Step1',
+              },
+              {
+                path: '/material/excelImport/confirm',
+                name: 'confirm',
+                component: './Material/Warehouse/ExcelImport/Step2',
+              },
+              {
+                path: '/material/excelImport/result',
+                name: 'result',
+                component: './Material/Warehouse/ExcelImport/Step3',
+              },
+            ],
           },
+
+
         ],
       },
       // 权限管理
@@ -138,7 +164,7 @@ export default [
             path: '/admin/group',
             name: 'group',
             authority: ['admin'],
-            component: './Admin/group',
+            component: './Admin/group', 
           },
           {
             path: '/admin/rule',
@@ -148,6 +174,52 @@ export default [
           },
         ],
       },
+      // // forms
+      // {
+      //   path: '/form',
+      //   icon: 'form',
+      //   name: 'form',
+      //   routes: [
+      //     {
+      //       path: '/form/basic-form',
+      //       name: 'basicform',
+      //       component: './Forms/BasicForm',
+      //     },
+      //     {
+      //       path: '/form/step-form',
+      //       name: 'stepform',
+      //       component: './Forms/StepForm',
+      //       hideChildrenInMenu: true,
+      //       routes: [
+      //         {
+      //           path: '/form/step-form',
+      //           redirect: '/form/step-form/info',
+      //         },
+      //         {
+      //           path: '/form/step-form/info',
+      //           name: 'info',
+      //           component: './Forms/StepForm/Step1',
+      //         },
+      //         {
+      //           path: '/form/step-form/confirm',
+      //           name: 'confirm',
+      //           component: './Forms/StepForm/Step2',
+      //         },
+      //         {
+      //           path: '/form/step-form/result',
+      //           name: 'result',
+      //           component: './Forms/StepForm/Step3',
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       path: '/form/advanced-form',
+      //       name: 'advancedform',
+      //       authority: ['admin'],
+      //       component: './Forms/AdvancedForm',
+      //     },
+      //   ],
+      // },
       {
         name: 'exception',
         icon: 'warning',
